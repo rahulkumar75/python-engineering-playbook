@@ -1,11 +1,7 @@
+import argparse
 import logging
 
 import psutil
-
-
-CPU_THRESHOLD = 80
-MEMORY_THRESHOLD = 80
-DISK_THRESHOLD = 80
 
 
 logging.basicConfig(
@@ -16,6 +12,18 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+def get_arguments():
+    parser = argparse.ArgumentParser(
+        description="Report system resource usage."
+    )
+
+    parser.add_argument("--cpu", type=float, default=80)
+    parser.add_argument("--memory", type=float, default=80)
+    parser.add_argument("--disk", type=float, default=80)
+
+    return parser.parse_args()
+
+
 def get_system_resources():
     return {
         "cpu": psutil.cpu_percent(interval=1),
@@ -24,26 +32,35 @@ def get_system_resources():
     }
 
 
-def check_thresholds(resources):
+def check_thresholds(resources, thresholds):
     warnings = []
 
-    if resources["cpu"] >= CPU_THRESHOLD:
+    if resources["cpu"] >= thresholds["cpu"]:
         warnings.append("High CPU usage")
 
-    if resources["memory"] >= MEMORY_THRESHOLD:
+    if resources["memory"] >= thresholds["memory"]:
         warnings.append("High memory usage")
 
-    if resources["disk"] >= DISK_THRESHOLD:
+    if resources["disk"] >= thresholds["disk"]:
         warnings.append("High disk usage")
 
     return warnings
 
 
 if __name__ == "__main__":
+    args = get_arguments()
+
     logger.info("Collecting system resources")
 
     resources = get_system_resources()
-    warnings = check_thresholds(resources)
+
+    thresholds = {
+        "cpu": args.cpu,
+        "memory": args.memory,
+        "disk": args.disk,
+    }
+
+    warnings = check_thresholds(resources, thresholds)
 
     print(f"CPU Usage: {resources['cpu']}%")
     print(f"Memory Usage: {resources['memory']}%")
