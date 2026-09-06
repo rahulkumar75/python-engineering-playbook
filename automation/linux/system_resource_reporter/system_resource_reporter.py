@@ -68,10 +68,14 @@ if __name__ == "__main__":
     "disk": args.disk,
 }
 
-    validate_thresholds(thresholds)
-
+    try:
+        validate_thresholds(thresholds)
+    except ValueError as error:
+        logger.error(error)
+        raise SystemExit(1)
 
     warnings = check_thresholds(resources, thresholds)
+
 
     print(f"CPU Usage: {resources['cpu']}%")
     print(f"Memory Usage: {resources['memory']}%")
