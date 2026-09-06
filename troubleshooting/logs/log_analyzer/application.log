@@ -1,0 +1,6 @@
+2026-09-06 10:00:01 INFO Application started
+2026-09-06 10:01:12 INFO Request received
+2026-09-06 10:02:20 WARNING High memory usage
+2026-09-06 10:03:15 ERROR Database connection failed
+2026-09-06 10:04:10 INFO Request completed
+2026-09-06 10:05:30 ERROR Database connection failed
