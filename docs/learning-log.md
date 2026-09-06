@@ -6,28 +6,49 @@ This log documents my practical Python learning through DevOps, SRE, automation,
 
 ## September 2026
 
-### Focus
+### Project 01 — System Resource Reporter
 
-Building practical Python skills for DevOps and SRE automation.
+Built a Python CLI utility for system resource monitoring.
 
-### Engineering Areas
+#### Implemented
 
-* Linux automation
-* Networking and troubleshooting
-* API integration
-* Cloud automation
-* Error handling
-* Logging
-* Testing
+- CPU, memory, and disk monitoring
+- Configurable thresholds
+- Input validation
+- Logging
+- JSON output
+- Unit tests
 
-### Key Learnings
+#### Engineering Learnings
 
-To be updated as I build and troubleshoot projects.
+- Using `psutil` for system metrics
+- Handling invalid CLI input
+- Separating functionality into functions
+- Writing testable Python code
+- Using logging for operational visibility
 
-### Implementations
+---
 
-To be updated as projects are added.
+### Project 02 — Log Analyzer
 
-### Engineering Notes
+Built a Python utility to analyze application logs.
 
-To be updated with important problems, decisions, failures, and improvements.
+#### Implemented
+
+- Log file parsing
+- INFO/WARNING/ERROR counting
+- CLI file input
+- Missing-file handling
+- Unit tests
+
+#### Engineering Learnings
+
+- Using `pathlib` for file handling
+- Using `argparse` for CLI interfaces
+- Handling file-related exceptions
+- Testing file-processing logic
+- Separating analysis logic from CLI execution
+
+### Overall Progress
+
+The focus is moving from basic Python scripting toward using Python for practical DevOps/SRE automation and troubleshooting.
