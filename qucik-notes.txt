@@ -1,0 +1,17 @@
+Create a virtual environment for this repo:
+python3 -m venv .venv
+
+Activate it:
+source .venv/bin/activate
+
+You should see:
+(.venv) ➜ python-engineering-playbook
+
+Now install:
+python -m pip install psutil
+
+verify:
+python -c "import psutil; print(psutil.__version__)"
+
+Then add .venv to .gitignore:
+echo ".venv/" >> .gitignore
