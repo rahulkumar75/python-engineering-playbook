@@ -1,5 +1,5 @@
 from pathlib import Path
-
+import argparse
 
 def analyze_log(file_path):
     path = Path(file_path)
@@ -25,9 +25,27 @@ def analyze_log(file_path):
 
     return total_lines, counts
 
+def get_arguments():
+    parser = argparse.ArgumentParser(
+        description="Analyze application logs."
+    )
+
+    parser.add_argument(
+        "file",
+        help="Path to the log file",
+    )
+
+    return parser.parse_args()
 
 if __name__ == "__main__":
-    total_lines, counts = analyze_log("application.log")
+    args = get_arguments()
+
+    try:
+        total_lines, counts = analyze_log(args.file)
+    except FileNotFoundError as error:
+        print(f"Error: {error}")
+        raise SystemExit(1)
+   
 
     print(f"Total lines: {total_lines}")
     print(f"INFO: {counts['INFO']}")
