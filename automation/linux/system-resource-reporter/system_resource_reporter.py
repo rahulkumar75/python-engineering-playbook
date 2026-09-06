@@ -1,9 +1,19 @@
+import logging
+
 import psutil
 
 
 CPU_THRESHOLD = 80
 MEMORY_THRESHOLD = 80
 DISK_THRESHOLD = 80
+
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+)
+
+logger = logging.getLogger(__name__)
 
 
 def get_system_resources():
@@ -30,6 +40,8 @@ def check_thresholds(resources):
 
 
 if __name__ == "__main__":
+    logger.info("Collecting system resources")
+
     resources = get_system_resources()
     warnings = check_thresholds(resources)
 
@@ -38,8 +50,11 @@ if __name__ == "__main__":
     print(f"Disk Usage: {resources['disk']}%")
 
     if warnings:
+        logger.warning("Resource threshold exceeded")
+
         print("\nWarnings:")
         for warning in warnings:
             print(f"- {warning}")
     else:
+        logger.info("System resources are within normal thresholds")
         print("\nSystem resources are within normal thresholds.")
