@@ -1,5 +1,6 @@
 import argparse
 import logging
+import json
 
 import psutil
 
@@ -13,6 +14,7 @@ logger = logging.getLogger(__name__)
 
 
 def get_arguments():
+
     parser = argparse.ArgumentParser(
         description="Report system resource usage."
     )
@@ -20,6 +22,12 @@ def get_arguments():
     parser.add_argument("--cpu", type=float, default=80)
     parser.add_argument("--memory", type=float, default=80)
     parser.add_argument("--disk", type=float, default=80)
+
+    parser.add_argument(
+    "--json",
+    action="store_true",
+    help="Output results in JSON format",
+    )
 
     return parser.parse_args()
 
@@ -46,6 +54,7 @@ def check_thresholds(resources, thresholds):
 
     return warnings
 
+
 def validate_thresholds(thresholds):
     for resource, threshold in thresholds.items():
         if not 0 <= threshold <= 100:
@@ -53,6 +62,14 @@ def validate_thresholds(thresholds):
                 f"{resource} threshold must be between 0 and 100"
             )
 
+def format_json(resources, warnings):
+    return json.dumps(
+        {
+            "resources": resources,
+            "warnings": warnings,
+        },
+        indent=2,
+    )
         
 
 if __name__ == "__main__":
@@ -75,6 +92,10 @@ if __name__ == "__main__":
         raise SystemExit(1)
 
     warnings = check_thresholds(resources, thresholds)
+
+    if args.json:
+        print(format_json(resources, warnings))
+        raise SystemExit(0)
 
 
     print(f"CPU Usage: {resources['cpu']}%")
