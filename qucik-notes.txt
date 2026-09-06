@@ -19,3 +19,10 @@ echo ".venv/" >> .gitignore
 
 Add dependeny to requirements.txt:
 pip freeze | grep requests >> requirements.txt
+
+# AWS
+verify AWS credentials:
+aws sts get-caller-identity
+
+if aws command isn't available:
+aws --version
