@@ -46,6 +46,14 @@ def check_thresholds(resources, thresholds):
 
     return warnings
 
+def validate_thresholds(thresholds):
+    for resource, threshold in thresholds.items():
+        if not 0 <= threshold <= 100:
+            raise ValueError(
+                f"{resource} threshold must be between 0 and 100"
+            )
+
+        
 
 if __name__ == "__main__":
     args = get_arguments()
@@ -55,10 +63,13 @@ if __name__ == "__main__":
     resources = get_system_resources()
 
     thresholds = {
-        "cpu": args.cpu,
-        "memory": args.memory,
-        "disk": args.disk,
-    }
+    "cpu": args.cpu,
+    "memory": args.memory,
+    "disk": args.disk,
+}
+
+    validate_thresholds(thresholds)
+
 
     warnings = check_thresholds(resources, thresholds)
 
