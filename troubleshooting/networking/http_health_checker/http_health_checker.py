@@ -1,5 +1,17 @@
 import requests
+import argparse
 
+def get_arguments():
+    parser = argparse.ArgumentParser(
+        description="Check HTTP endpoint health."
+    )
+
+    parser.add_argument(
+        "url",
+        help="URL to check",
+    )
+
+    return parser.parse_args()
 
 def check_health(url):
     response = requests.get(url, timeout=5)
@@ -12,7 +24,9 @@ def check_health(url):
 
 
 if __name__ == "__main__":
-    result = check_health("https://google.com")
+    args = get_arguments()
+
+    result = check_health(args.url)
 
     print(f"URL: {result['url']}")
     print(f"Status Code: {result['status_code']}")
