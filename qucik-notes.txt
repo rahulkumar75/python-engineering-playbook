@@ -7,7 +7,7 @@ source .venv/bin/activate
 You should see:
 (.venv) ➜ python-engineering-playbook
 
-Now install:
+Install dependency
 python -m pip install psutil
 
 verify:
@@ -15,3 +15,7 @@ python -c "import psutil; print(psutil.__version__)"
 
 Then add .venv to .gitignore:
 echo ".venv/" >> .gitignore
+
+
+Add dependeny to requirements.txt:
+pip freeze | grep requests >> requirements.txt
