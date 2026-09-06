@@ -8,17 +8,24 @@ A Python utility for checking CPU, memory, and disk usage with configurable thre
 Build a Python utility to quickly collect basic system resource metrics.
 
 
-
-
 ## Usage
-
 From the repository root:
 
 ```bash
 python automation/linux/system_resource_reporter/system_resource_reporter.py
 ````
 
-Custom thresholds:
+## Current Features
+- CPU monitoring
+- Memory monitoring
+- Disk monitoring
+- Configurable thresholds
+- Logging
+- Error handling
+- JSON output
+- Unit tests
+
+## Custom thresholds:
 
 ```bash
 python automation/linux/system_resource_reporter/system_resource_reporter.py \
@@ -38,6 +45,27 @@ Warnings:
 - High memory usage
 ```
 
+## Example JSON:
+```
+python automation/linux/system_resource_reporter/system_resource_reporter.py \
+  --memory 70 \
+  --json
+```
+
+## Output
+```
+{
+  "resources": {
+    "cpu": 20.4,
+    "memory": 82.0,
+    "disk": 21.0
+  },
+  "warnings": [
+    "High memory usage"
+  ]
+}
+```
+
 ## Tests
 
 Run from the repository root:
@@ -46,19 +74,7 @@ Run from the repository root:
 python -m pytest
 ```
 
-## Current Features
-
-* CPU monitoring
-* Memory monitoring
-* Disk monitoring
-* Configurable thresholds
-* Logging
-* CLI arguments
-* Unit tests
-
 ## Next
 
-* Improve input validation
-* Add JSON output
 * Improve error handling
 
