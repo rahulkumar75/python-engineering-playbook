@@ -14,20 +14,29 @@ def get_arguments():
     return parser.parse_args()
 
 def check_health(url):
-    response = requests.get(url, timeout=5)
+    try:
+        response = requests.get(url, timeout=5)
 
-    return {
-        "url": url,
-        "status_code": response.status_code,
-        "response_time": response.elapsed.total_seconds(),
-    }
+        return {
+            "url": url,
+            "status_code": response.status_code,
+            "response_time": response.elapsed.total_seconds(),
+        }
+
+    except requests.exceptions.RequestException as error:
+        raise RuntimeError(f"Health check failed: {error}") from error
 
 
 if __name__ == "__main__":
     args = get_arguments()
 
-    result = check_health(args.url)
+    try:
+        result = check_health(args.url)
 
-    print(f"URL: {result['url']}")
-    print(f"Status Code: {result['status_code']}")
-    print(f"Response Time: {result['response_time']:.3f}s")
+        print(f"URL: {result['url']}")
+        print(f"Status Code: {result['status_code']}")
+        print(f"Response Time: {result['response_time']:.3f}s")
+
+    except RuntimeError as error:
+        print(f"Error: {error}")
+        raise SystemExit(1)
